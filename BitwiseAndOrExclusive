@@ -1,0 +1,143 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <limits.h>
+#include <ctype.h>
+#include <string.h>
+#include <math.h>
+
+char **copyArray(int argc,char **argv);
+void printFirst(int argc, char **argv);
+void bitwiseAnd(unsigned long int passedOne, unsigned long int passedTwo);
+void bitwiseOr(unsigned long int passedOne, unsigned long int passedTwo);
+void bitwiseExclusiveOr(unsigned long int passedOne, unsigned long int passedTwo);
+  
+int main (int argc, char **argv)
+  {  
+    unsigned long int uli1 = strtoul ( argv[1], NULL, 2 ) ; 
+    unsigned long int uli2 = strtoul ( argv[2], NULL, 2 ) ; 
+    
+    printFirst(argc,argv);
+  
+    printf("%s & %s = ",argv[1],argv[2]);    
+    bitwiseAnd(uli1,uli2);
+  
+    printf("\n%s | %s = ",argv[1],argv[2]);  
+    bitwiseOr(uli1,uli2);
+  
+    printf("\n%s ^ %s = ",argv[1],argv[2]);  
+    bitwiseExclusiveOr(uli1,uli2);
+  
+    printf("\n\n");
+    printf("Thank you for using Maverick Software.\n");
+  
+  
+  }
+
+void bitwiseAnd(unsigned long int passedOne, unsigned long int passedTwo)
+  {
+    unsigned long int received = passedOne & passedTwo;
+    char str[32];
+ 
+    unsigned long int converted;
+    for ( int i = 0 ; i < 32 ; i ++ )
+    {
+      converted =  received  & 0x01; 
+      str[i]=converted;
+      received = received /2;
+    }
+    for(int i = 31 ; i >=0 ; i--)
+    {
+      printf("%u",str[i]);
+    }
+  }
+
+void bitwiseOr(unsigned long int passedOne, unsigned long int passedTwo)
+  {
+    unsigned long int received = passedOne | passedTwo;
+    char str[32];
+ 
+    unsigned long int converted;
+    for ( int i = 0 ; i < 32 ; i ++ )
+    {
+      converted =  received  & 0x01; 
+      str[i]=converted;
+      received = received /2;
+    }
+    for(int i = 31 ; i >=0 ; i--)
+    {
+      printf("%u",str[i]);
+    }
+  }
+
+void bitwiseExclusiveOr(unsigned long int passedOne, unsigned long int passedTwo)
+  {
+    unsigned long int received = passedOne ^ passedTwo;
+    char str[32];
+ 
+    unsigned long int converted;
+    for ( int i = 0 ; i < 32 ; i ++ )
+    {
+      converted =  received  & 0x01; 
+      str[i]=converted;
+      received = received /2;
+    }
+    for(int i = 31 ; i >=0 ; i--)
+    {
+      printf("%u",str[i]);
+    }
+  }
+
+void printFirst(int argc, char **argv)
+{
+  printf("This program illustrates the behavior of some of the bitwise operators.\n\n");
+  printf("Your command-line arguments are \"%s\" and \"%s\".\n\n",argv[1],argv[2]);
+}
+
+
+
+
+
+
+char **copyArray(int argc,char **argv)
+{
+   char **newArray = malloc((argc+1) * sizeof *newArray);
+  char **newestArray = malloc((argc+1) * sizeof *newArray);
+
+
+
+
+  for(int i = 0 ; i < argc ; i++)
+  {
+    size_t length = strlen(argv[i])+1;
+    newArray[i] = malloc(length);
+    memcpy(newArray[i],argv[i],length);
+  }
+  newArray[argc] = NULL ; 
+
+   for(int i = 0 ; i < argc;i++)
+  {
+     strcpy(newArray[i],argv[i]);
+
+  }
+  
+  for(int j = 1 ; j < 23 ; j++)
+  {
+    if(**newArray == '.')
+    {
+      **newArray = '0';
+    }
+    printf("%c",**newArray);  
+  }
+  
+  char *convertFirst = newArray[1];
+  printf("%s\n",convertFirst);
+  char *ptr2;
+  unsigned long int ret2;
+  ret2 = strtoul(convertFirst, &ptr2, 10);
+  unsigned long int ret3 = ret2 / .10;
+  printf("%ld\n",ret3);
+  
+
+
+  
+}
